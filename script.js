@@ -14,7 +14,7 @@ function getComputerChoice() {
 };
 
 // Get player choice
-let playerSelection = 'rOcK and STONE!';
+let playerSelection = 'rOcK';
 let computerSelection = getComputerChoice();
 
 // Compare choices to determine winner
@@ -52,6 +52,24 @@ function getRoundVerdict(playerSelection, computerSelection) {
                 roundVerdict = 'lose';
                 break;
             case 'scissors':
+                roundVerdict = 'win';
+                break;
+        };
+    } else if (playerSelection === 'paper') {
+        switch (computerSelection) {
+            case 'rock':
+                roundVerdict = 'win';
+                break;
+            case 'scissors':
+                roundVerdict = 'lose';
+                break;
+        };
+    } else if (playerSelection === 'scissors') {
+        switch (computerSelection) {
+            case 'rock':
+                roundVerdict = 'lose';
+                break;
+            case 'paper':
                 roundVerdict = 'win';
                 break;
         };
