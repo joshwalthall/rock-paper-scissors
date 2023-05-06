@@ -27,14 +27,14 @@ let computerSelection = getComputerChoice();
 
 // 
 
-function normalizeInput(inputText) {
+function normalizeText(inputText) {
     // Convert input text to all lowercase characters
     let outputText = inputText.toLowerCase();
     // Return converted input
     return outputText;
 };
 
-function capitalizeInput(inputText) {
+function capitalizeText(inputText) {
     // Get first letter of input text
     firstLetter = inputText.charAt(0);
     // Get rest of text
@@ -100,8 +100,18 @@ function getRoundVerdict(playerSelection, computerSelection) {
     return roundVerdict;
 };
 
+function playRound(playerSelection, computerSelection) {
+    // Create variable to store round verdict message
+    let verdictMessage = '';
+    // Get round verdict based on player and computer selections
+    let roundVerdict = getRoundVerdict(playerSelection, computerSelection);
+    // Create round verdict message and assign to variable
+    
+    // Return round verdict message
+}
+
 // Output final verdict message
 console.log("Testing capitalizeText()")
 let testInputText = 'rOcK AND stONE!'
 console.log(`\tInput Text: ${testInputText}`)
-console.log(`\tOutput Text: ${capitalizeInput(testInputText)}`)
+console.log(`\tOutput Text: ${capitalizeText(testInputText)}`)
