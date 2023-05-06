@@ -11,11 +11,11 @@ function getComputerChoice() {
     computerSelection = validChoices[randomIndex];
     // Return that value
     return computerSelection;
-}
+};
 
 // Get player choice
-let playerSelection = 'sCiSsOrS'
-let computerSelection = getComputerChoice()
+let playerSelection = 'rOcK';
+let computerSelection = getComputerChoice();
 
 // Compare choices to determine winner
     // Normalize player selection to lowercase
@@ -28,24 +28,42 @@ let computerSelection = getComputerChoice()
 // 
 
 function normalizeInput(inputText) {
-    let outputText = inputText.toLowerCase()
-    return outputText
-}
+    let outputText = inputText.toLowerCase();
+    return outputText;
+};
 
 function selectionIsValid(selection) {
-    return validChoices.includes(selection)
-}
+    return validChoices.includes(selection);
+};
+
+function getRoundVerdict(playerSelection, computerSelection) {
+    // Create variable to store round verdict
+    let roundVerdict = '';
+    // If selections are the same
+    //// Set verdict to tie
+    if (playerSelection === computerSelection) {
+        roundVerdict = `tie`;
+    } else if (playerSelection === 'rock') {
+        switch (computerSelection) {
+            case 'paper':
+                roundVerdict = 'lose';
+                break;
+            case 'scissors':
+                roundVerdict = 'win';
+                break;
+        };
+    };
+
+    return roundVerdict;
+    // If player selected rock
+    //// Match rock to computer selection
+    // If player selected paper
+    //// Match paper to computer selection
+    // If player selected scissors
+    //// Match scissors to computer selection
+};
 
 // Output final verdict message
-
-console.log(`Player Selection: ${playerSelection}`)
-console.log(`Normalized Player Selection: ${normalizeInput(playerSelection)}`)
-let isValid = selectionIsValid(normalizeInput(playerSelection))
-console.log(`Is Valid: ${isValid}`)
-
-playerSelection = 'rock and STONE!'
-
-console.log(`Player Selection: ${playerSelection}`)
-console.log(`Normalized Player Selection: ${normalizeInput(playerSelection)}`)
-isValid = selectionIsValid(normalizeInput(playerSelection))
-console.log(`Is Valid: ${isValid}`)
+let roundVerdict = getRoundVerdict(normalizeInput(playerSelection), computerSelection);
+let verdictMessage = `Player selected ${normalizeInput(playerSelection)}, computer selected ${computerSelection}. Verdict is ${roundVerdict}`;
+console.log(verdictMessage);
