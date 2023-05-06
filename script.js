@@ -14,7 +14,7 @@ function getComputerChoice() {
 }
 
 // Get player choice
-let playerSelection = 'rOcK'
+let playerSelection = 'sCiSsOrS'
 let computerSelection = getComputerChoice()
 
 // Compare choices to determine winner
@@ -29,10 +29,23 @@ let computerSelection = getComputerChoice()
 
 function normalizeInput(inputText) {
     let outputText = inputText.toLowerCase()
-    console.log(outputText)
+    return outputText
+}
+
+function selectionIsValid(selection) {
+    return validChoices.includes(selection)
 }
 
 // Output final verdict message
-console.log(getComputerChoice());
-console.log(getComputerChoice());
-console.log(getComputerChoice());
+
+console.log(`Player Selection: ${playerSelection}`)
+console.log(`Normalized Player Selection: ${normalizeInput(playerSelection)}`)
+let isValid = selectionIsValid(normalizeInput(playerSelection))
+console.log(`Is Valid: ${isValid}`)
+
+playerSelection = 'rock and STONE!'
+
+console.log(`Player Selection: ${playerSelection}`)
+console.log(`Normalized Player Selection: ${normalizeInput(playerSelection)}`)
+isValid = selectionIsValid(normalizeInput(playerSelection))
+console.log(`Is Valid: ${isValid}`)
