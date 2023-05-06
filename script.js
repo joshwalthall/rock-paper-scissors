@@ -14,7 +14,7 @@ function getComputerChoice() {
 };
 
 // Get player choice
-let playerSelection = 'rOcK';
+let playerSelection = 'rOcK and STONE!';
 let computerSelection = getComputerChoice();
 
 // Compare choices to determine winner
@@ -39,9 +39,12 @@ function selectionIsValid(selection) {
 function getRoundVerdict(playerSelection, computerSelection) {
     // Create variable to store round verdict
     let roundVerdict = '';
+    // Check if player selection is valid
+    if (selectionIsValid(playerSelection) === false) {
+        roundVerdict = 'invalid'
+    } else if (playerSelection === computerSelection) {
     // If selections are the same
     //// Set verdict to tie
-    if (playerSelection === computerSelection) {
         roundVerdict = `tie`;
     } else if (playerSelection === 'rock') {
         switch (computerSelection) {
