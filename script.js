@@ -1,7 +1,6 @@
 // Initialize variable to hold valid choices
 const validChoices = ['rock', 'paper', 'scissors'];
 
-// Get computer choice
 function getComputerChoice() {
     // Create variable to store computer choice
     let computerSelection = '';
@@ -15,6 +14,7 @@ function getComputerChoice() {
 
 // Get player choice
 let playerSelection = 'rOcK';
+// Get computer choice
 let computerSelection = getComputerChoice();
 
 // Compare choices to determine winner
@@ -28,11 +28,25 @@ let computerSelection = getComputerChoice();
 // 
 
 function normalizeInput(inputText) {
+    // Convert input text to all lowercase characters
     let outputText = inputText.toLowerCase();
+    // Return converted input
     return outputText;
 };
 
+function capitalizeInput(inputText) {
+    // Get first letter of input text
+    firstLetter = inputText.charAt(0);
+    // Get rest of text
+    restOfText = inputText.slice(1);
+    // Create output text by adding capitalized first letter to lowercase rest of text
+    outputText = firstLetter.toUpperCase() + restOfText.toLowerCase();
+    // Return output text
+    return outputText
+}
+
 function selectionIsValid(selection) {
+    // Return true if selection is in validChoices array, otherwise return false
     return validChoices.includes(selection);
 };
 
@@ -43,48 +57,51 @@ function getRoundVerdict(playerSelection, computerSelection) {
     if (selectionIsValid(playerSelection) === false) {
         roundVerdict = 'invalid'
     } else if (playerSelection === computerSelection) {
-    // If selections are the same
-    //// Set verdict to tie
+        // If selections are the same, set verdict to tie
         roundVerdict = `tie`;
     } else if (playerSelection === 'rock') {
+        // If player chose rock...
         switch (computerSelection) {
             case 'paper':
+                // ...and computer chose paper, player loses
                 roundVerdict = 'lose';
                 break;
             case 'scissors':
+                // ...and computer chose scissors, player wins
                 roundVerdict = 'win';
                 break;
         };
     } else if (playerSelection === 'paper') {
+        // If player chose paper...
         switch (computerSelection) {
             case 'rock':
+                // ...and computer chose rock, player wins
                 roundVerdict = 'win';
                 break;
             case 'scissors':
+                // ...and computer chose scissors, player loses
                 roundVerdict = 'lose';
                 break;
         };
     } else if (playerSelection === 'scissors') {
+        // If player chose scissors...
         switch (computerSelection) {
             case 'rock':
+                // ...and computer chose rock, player loses
                 roundVerdict = 'lose';
                 break;
             case 'paper':
+                // ...and computer chose paper, player wins
                 roundVerdict = 'win';
                 break;
         };
     };
-
+    // Return round verdict value (win, lose, tie, or invalid)
     return roundVerdict;
-    // If player selected rock
-    //// Match rock to computer selection
-    // If player selected paper
-    //// Match paper to computer selection
-    // If player selected scissors
-    //// Match scissors to computer selection
 };
 
 // Output final verdict message
-let roundVerdict = getRoundVerdict(normalizeInput(playerSelection), computerSelection);
-let verdictMessage = `Player selected ${normalizeInput(playerSelection)}, computer selected ${computerSelection}. Verdict is ${roundVerdict}`;
-console.log(verdictMessage);
+console.log("Testing capitalizeText()")
+let testInputText = 'rOcK AND stONE!'
+console.log(`\tInput Text: ${testInputText}`)
+console.log(`\tOutput Text: ${capitalizeInput(testInputText)}`)
