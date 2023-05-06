@@ -19,11 +19,6 @@ function getPlayerChoice() {
     return playerChoice;
 };
 
-// Get player choice
-let playerSelection = getPlayerChoice();
-// Get computer choice
-let computerSelection = getComputerChoice();
-
 function normalizeText(inputText) {
     // Convert input text to all lowercase characters
     let outputText = inputText.toLowerCase();
@@ -39,7 +34,7 @@ function capitalizeText(inputText) {
     // Create output text by adding capitalized first letter to lowercase rest of text
     outputText = firstLetter.toUpperCase() + restOfText.toLowerCase();
     // Return output text
-    return outputText
+    return outputText;
 }
 
 function selectionIsValid(selection) {
@@ -52,7 +47,7 @@ function getRoundVerdict(playerSelection, computerSelection) {
     let roundVerdict = '';
     // Check if player selection is valid
     if (selectionIsValid(playerSelection) === false) {
-        roundVerdict = 'invalid'
+        roundVerdict = 'invalid';
     } else if (playerSelection === computerSelection) {
         // If selections are the same, set verdict to tie
         roundVerdict = `tie`;
@@ -97,7 +92,13 @@ function getRoundVerdict(playerSelection, computerSelection) {
     return roundVerdict;
 };
 
-function playRound(playerSelection, computerSelection) {
+function playRound() {
+    // Get player choice
+    let playerSelection = getPlayerChoice();
+    // Get computer choice
+    let computerSelection = getComputerChoice();
+    // Create and populate round details
+    let roundDetails = `You chose ${playerSelection}, the computer chose ${computerSelection}.`;
     // Create variable to store round verdict message
     let verdictMessage = '';
     // Get round verdict based on player and computer selections
@@ -121,15 +122,78 @@ function playRound(playerSelection, computerSelection) {
             verdictMessage = `You Lose! ${computerSelCap} annihilates whatever "${playerSelCap}" is`;
             break;
     }
+    // Create variable to store round verdict and verdict message in array
+    let verdictInfo = [roundDetails, roundVerdict, verdictMessage]
     // Return round verdict message
-    return verdictMessage
+    return verdictInfo;
 }
 
-// Output final verdict message
-console.log("Testing playRound()")
-let testInputText = normalizeText(playerSelection)
-let testComputerChoice = getComputerChoice()
-console.log(`\tPlayer Choice: ${testInputText}`)
-console.log(`\tComputer Choice: ${testComputerChoice}`)
-console.log(`\tOutput Text: ${playRound(testInputText, testComputerChoice)}`)
+function game () {
+    // Create variable to store game round counter
+    let roundCounter = 1;
+    // Create variable to store player score
+    let playerScore = 0;
+    // Create variable to store computer score
+    let computerScore = 0;
+    // Play 5 rounds
+    for (let i = roundCounter; i < 6; i++) {
+        // Create variable that plays round and stores round results info
+        let verdictInfo = playRound();
+        // Display round details
+        console.log(verdictInfo[0]);
+        // Display round verdict message
+        console.log(`\t${verdictInfo[2]}`);
+        // Change player or computer score based on verdict info
+        switch (verdictInfo[1]) {
+            case 'win':
+                playerScore++;
+                console.log("\tPlayer Score +1!");
+                break;
+            case 'lose':
+                computerScore++;
+                console.log("\tComputer Score +1!");
+                break;
+            case 'invalid':
+                computerScore++;
+                console.log("\tComputer Score +1!");
+                break;
+        };
+        
+    };
+    // Display final score
+    console.log(`\nFINAL SCORE\t>>>\tPlayer: ${playerScore}\tComputer: ${computerScore}\n\n`);
+    // Display final verdict message
+    if (playerScore > computerScore) {
+        console.log(
+            `
+██████╗ ██╗      █████╗ ██╗   ██╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗██╗
+██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝██║
+██████╔╝██║     ███████║ ╚████╔╝ █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗██║
+██╔═══╝ ██║     ██╔══██║  ╚██╔╝  ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║╚═╝
+██║     ███████╗██║  ██║   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║██╗
+╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝
+            `);
+    } else if (computerScore > playerScore) {
+        console.log(
+            `
+ ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗   ██╗████████╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗██╗
+██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║   ██║╚══██╔══╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝██║
+██║     ██║   ██║██╔████╔██║██████╔╝██║   ██║   ██║   █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗██║
+██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║   ██║   ██║   ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║╚═╝
+╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ╚██████╔╝   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║██╗
+╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝      ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝
+            `);
+    } else if (playerScore === computerScore) {
+        console.log(
+            `
+████████╗██╗███████╗     ██████╗  █████╗ ███╗   ███╗███████╗██╗
+╚══██╔══╝██║██╔════╝    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝██║
+   ██║   ██║█████╗      ██║  ███╗███████║██╔████╔██║█████╗  ██║
+   ██║   ██║██╔══╝      ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ╚═╝
+   ██║   ██║███████╗    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██╗
+   ╚═╝   ╚═╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝
+            `);
+    }
+};
 
+game()
