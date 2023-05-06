@@ -12,20 +12,17 @@ function getComputerChoice() {
     return computerSelection;
 };
 
+function getPlayerChoice() {
+    // Create variable to store player text input
+    let playerChoice = normalizeText(prompt("Choose your Weapon! Rock, Paper, or Scissors: "));
+    // Return player text input
+    return playerChoice;
+};
+
 // Get player choice
-let playerSelection = 'pApEr';
+let playerSelection = getPlayerChoice();
 // Get computer choice
 let computerSelection = getComputerChoice();
-
-// Compare choices to determine winner
-    // Normalize player selection to lowercase
-    // Check if player selection is valid
-    // Create variable to store verdict message
-    // If player and computer selections match, return "It's a tie! X and Y cancel out!"
-    // If player wins round, return "You Win! X beats Y!" message
-    // If computer wins round, return "You Lose! Y beats X!" message
-
-// 
 
 function normalizeText(inputText) {
     // Convert input text to all lowercase characters
