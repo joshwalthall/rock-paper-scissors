@@ -13,7 +13,7 @@ function getComputerChoice() {
 };
 
 // Get player choice
-let playerSelection = 'rOcK';
+let playerSelection = 'pApEr';
 // Get computer choice
 let computerSelection = getComputerChoice();
 
@@ -105,13 +105,34 @@ function playRound(playerSelection, computerSelection) {
     let verdictMessage = '';
     // Get round verdict based on player and computer selections
     let roundVerdict = getRoundVerdict(playerSelection, computerSelection);
+    // Create capitalized version of player selection
+    let playerSelCap = capitalizeText(playerSelection);
+    // Create capitalized version of computer selection
+    let computerSelCap = capitalizeText(computerSelection);
     // Create round verdict message and assign to variable
-    
+    switch (roundVerdict) {
+        case 'win':
+            verdictMessage = `You Win! ${playerSelCap} beats ${computerSelCap}`;
+            break;
+        case 'lose':
+            verdictMessage = `You Lose! ${computerSelCap} beats ${playerSelCap}`;
+            break;
+        case 'tie':
+            verdictMessage = `It's a Tie! ${playerSelCap} and ${computerSelCap} cancel each other out!`;
+            break;
+        case 'invalid':
+            verdictMessage = `You Lose! ${computerSelCap} annihilates whatever "${playerSelCap}" is`;
+            break;
+    }
     // Return round verdict message
+    return verdictMessage
 }
 
 // Output final verdict message
-console.log("Testing capitalizeText()")
-let testInputText = 'rOcK AND stONE!'
-console.log(`\tInput Text: ${testInputText}`)
-console.log(`\tOutput Text: ${capitalizeText(testInputText)}`)
+console.log("Testing playRound()")
+let testInputText = normalizeText(playerSelection)
+let testComputerChoice = getComputerChoice()
+console.log(`\tPlayer Choice: ${testInputText}`)
+console.log(`\tComputer Choice: ${testComputerChoice}`)
+console.log(`\tOutput Text: ${playRound(testInputText, testComputerChoice)}`)
+
