@@ -8,6 +8,7 @@ const gameMessages = document.querySelector('#gameMessages');
 const btnRock = document.querySelector('#btnRock');
 const btnPaper = document.querySelector('#btnPaper');
 const btnScissors = document.querySelector('#btnScissors');
+const finalMessage = document.querySelector('#finalMessage');
 
 btnRock.addEventListener('click', function() {playRound('rock');});
 btnPaper.addEventListener('click', function() {playRound('paper');});
@@ -141,18 +142,28 @@ function playRound(playerSelection) {
     // Create variable to store round verdict and verdict message in array
     let verdictInfo = [roundDetails, roundVerdict, verdictMessage]
     // Update player or computer score based on verdict
-    if (roundVerdict == 'win') {
-        playerScore += 1;
-    } else if (roundVerdict == 'lose') {
-        computerScore += 1;
-    }
+    updateScore(roundVerdict);
     // Update scoreboard to show latest score
-    playerScoreboard.textContent = `You: ${playerScore}`;
-    computerScoreboard.textContent = `Computer: ${computerScore}`;
+    updateScoreboard();
     // Display game verdict in game messages box
     gameMessages.textContent = verdictInfo[0] + ' ' + verdictInfo[2];
     // Return round verdict message
     return verdictInfo;
+}
+
+function updateScore(roundVerdict) {
+    // Update player or computer score based on verdict
+    if (roundVerdict == 'win') {
+        playerScore += 1;
+    } else if (roundVerdict = 'lose') {
+        computerScore += 1;
+    }
+}
+
+function updateScoreboard() {
+    // Update scoreboard to show latest score
+    playerScoreboard.textContent = `You: ${playerScore}`;
+    computerScoreboard.textContent = `Computer: ${computerScore}`;
 }
 
 // function game () {
