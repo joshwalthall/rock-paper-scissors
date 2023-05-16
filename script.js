@@ -131,7 +131,7 @@ function playRound(playerSelection) {
     }
     // Create variable to store round verdict and verdict message in array
     let verdictInfo = [roundDetails, roundVerdict, verdictMessage]
-    console.log(verdictInfo);
+    scoreboard.textContent = verdictInfo[0] + ' ' + verdictInfo[2];
     // Return round verdict message
     return verdictInfo;
 }
