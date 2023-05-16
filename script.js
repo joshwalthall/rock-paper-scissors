@@ -1,5 +1,14 @@
 // Initialize variable to hold valid choices
 const validChoices = ['rock', 'paper', 'scissors'];
+const container = document.querySelector('#container');
+const scoreboard = document.querySelector('#scoreboard');
+const btnRock = document.querySelector('#btnRock');
+const btnPaper = document.querySelector('#btnPaper');
+const btnScissors = document.querySelector('#btnScissors');
+
+btnRock.addEventListener('click', function() {playRound('rock');});
+btnPaper.addEventListener('click', function() {playRound('paper');});
+btnScissors.addEventListener('click', function() {playRound('scissors');});
 
 function getComputerChoice() {
     // Create variable to store computer choice
@@ -92,9 +101,7 @@ function getRoundVerdict(playerSelection, computerSelection) {
     return roundVerdict;
 };
 
-function playRound() {
-    // Get player choice
-    let playerSelection = getPlayerChoice();
+function playRound(playerSelection) {
     // Get computer choice
     let computerSelection = getComputerChoice();
     // Create and populate round details
@@ -124,76 +131,78 @@ function playRound() {
     }
     // Create variable to store round verdict and verdict message in array
     let verdictInfo = [roundDetails, roundVerdict, verdictMessage]
+    console.log(verdictInfo);
     // Return round verdict message
     return verdictInfo;
 }
 
-function game () {
-    // Create variable to store game round counter
-    let roundCounter = 1;
-    // Create variable to store player score
-    let playerScore = 0;
-    // Create variable to store computer score
-    let computerScore = 0;
-    // Play 5 rounds
-    for (let i = roundCounter; i < 6; i++) {
-        // Create variable that plays round and stores round results info
-        let verdictInfo = playRound();
-        // Display round details
-        console.log(verdictInfo[0]);
-        // Display round verdict message
-        console.log(`\t${verdictInfo[2]}`);
-        // Change player or computer score based on verdict info
-        switch (verdictInfo[1]) {
-            case 'win':
-                playerScore++;
-                console.log("\tPlayer Score +1!");
-                break;
-            case 'lose':
-                computerScore++;
-                console.log("\tComputer Score +1!");
-                break;
-            case 'invalid':
-                computerScore++;
-                console.log("\tComputer Score +1!");
-                break;
-        };
+// function game () {
+//     // Create variable to store game round counter
+//     let roundCounter = 1;
+//     // Create variable to store player score
+//     let playerScore = 0;
+//     // Create variable to store computer score
+//     let computerScore = 0;
+    
+    // // Play 5 rounds
+    // for (let i = roundCounter; i < 6; i++) {
+    //     // Create variable that plays round and stores round results info
+    //     let verdictInfo = playRound();
+    //     // Display round details
+    //     console.log(verdictInfo[0]);
+    //     // Display round verdict message
+    //     console.log(`\t${verdictInfo[2]}`);
+    //     // Change player or computer score based on verdict info
+    //     switch (verdictInfo[1]) {
+    //         case 'win':
+    //             playerScore++;
+    //             console.log("\tPlayer Score +1!");
+    //             break;
+    //         case 'lose':
+    //             computerScore++;
+    //             console.log("\tComputer Score +1!");
+    //             break;
+    //         case 'invalid':
+    //             computerScore++;
+    //             console.log("\tComputer Score +1!");
+    //             break;
+    //     };
         
-    };
-    // Display final score
-    console.log(`\nFINAL SCORE\t>>>\tPlayer: ${playerScore}\tComputer: ${computerScore}\n\n`);
-    // Display final verdict message
-    if (playerScore > computerScore) {
-        console.log(
-            `
-██████╗ ██╗      █████╗ ██╗   ██╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗██╗
-██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝██║
-██████╔╝██║     ███████║ ╚████╔╝ █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗██║
-██╔═══╝ ██║     ██╔══██║  ╚██╔╝  ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║╚═╝
-██║     ███████╗██║  ██║   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║██╗
-╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝
-            `);
-    } else if (computerScore > playerScore) {
-        console.log(
-            `
- ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗   ██╗████████╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗██╗
-██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║   ██║╚══██╔══╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝██║
-██║     ██║   ██║██╔████╔██║██████╔╝██║   ██║   ██║   █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗██║
-██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║   ██║   ██║   ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║╚═╝
-╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ╚██████╔╝   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║██╗
-╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝      ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝
-            `);
-    } else if (playerScore === computerScore) {
-        console.log(
-            `
-████████╗██╗███████╗     ██████╗  █████╗ ███╗   ███╗███████╗██╗
-╚══██╔══╝██║██╔════╝    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝██║
-   ██║   ██║█████╗      ██║  ███╗███████║██╔████╔██║█████╗  ██║
-   ██║   ██║██╔══╝      ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ╚═╝
-   ██║   ██║███████╗    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██╗
-   ╚═╝   ╚═╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝
-            `);
-    }
-};
+//     };
+//     // Display final score
+//     console.log(`\nFINAL SCORE\t>>>\tPlayer: ${playerScore}\tComputer: ${computerScore}\n\n`);
+//     // Display final verdict message
+//     if (playerScore > computerScore) {
+//         console.log(
+//             `
+// ██████╗ ██╗      █████╗ ██╗   ██╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗██╗
+// ██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝██║
+// ██████╔╝██║     ███████║ ╚████╔╝ █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗██║
+// ██╔═══╝ ██║     ██╔══██║  ╚██╔╝  ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║╚═╝
+// ██║     ███████╗██║  ██║   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║██╗
+// ╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝
+//             `);
+//     } else if (computerScore > playerScore) {
+//         console.log(
+//             `
+//  ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗   ██╗████████╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗██╗
+// ██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║   ██║╚══██╔══╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝██║
+// ██║     ██║   ██║██╔████╔██║██████╔╝██║   ██║   ██║   █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗██║
+// ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║   ██║   ██║   ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║╚═╝
+// ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ╚██████╔╝   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║██╗
+// ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝      ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝
+//             `);
+//     } else if (playerScore === computerScore) {
+//         console.log(
+//             `
+// ████████╗██╗███████╗     ██████╗  █████╗ ███╗   ███╗███████╗██╗
+// ╚══██╔══╝██║██╔════╝    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝██║
+//    ██║   ██║█████╗      ██║  ███╗███████║██╔████╔██║█████╗  ██║
+//    ██║   ██║██╔══╝      ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ╚═╝
+//    ██║   ██║███████╗    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██╗
+//    ╚═╝   ╚═╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝
+//             `);
+//     }
+// };
 
-game()
+// game()
