@@ -4,3 +4,9 @@ article {
     flex-direction: column;
     gap: 25px;
 }
+
+#scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
