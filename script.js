@@ -8,6 +8,7 @@ const gameMessages = document.querySelector('#gameMessages');
 const btnRock = document.querySelector('#btnRock');
 const btnPaper = document.querySelector('#btnPaper');
 const btnScissors = document.querySelector('#btnScissors');
+const allButtons = [btnRock, btnPaper, btnScissors];
 const finalMessage = document.querySelector('#finalMessage');
 
 btnRock.addEventListener('click', function() {playRound('rock');});
@@ -16,6 +17,7 @@ btnScissors.addEventListener('click', function() {playRound('scissors');});
 
 let playerScore = 0;
 let computerScore = 0;
+const winningScore = 5;
 
 playerScoreboard.textContent = `You: ${playerScore}`;
 computerScoreboard.textContent = `Computer: ${computerScore}`;
@@ -31,20 +33,6 @@ function getComputerChoice() {
     return computerSelection;
 };
 
-function getPlayerChoice() {
-    // Create variable to store player text input
-    let playerChoice = normalizeText(prompt("Choose your Weapon! Rock, Paper, or Scissors: "));
-    // Return player text input
-    return playerChoice;
-};
-
-function normalizeText(inputText) {
-    // Convert input text to all lowercase characters
-    let outputText = inputText.toLowerCase();
-    // Return converted input
-    return outputText;
-};
-
 function capitalizeText(inputText) {
     // Get first letter of input text
     firstLetter = inputText.charAt(0);
@@ -56,18 +44,10 @@ function capitalizeText(inputText) {
     return outputText;
 }
 
-function selectionIsValid(selection) {
-    // Return true if selection is in validChoices array, otherwise return false
-    return validChoices.includes(selection);
-};
-
 function getRoundVerdict(playerSelection, computerSelection) {
     // Create variable to store round verdict
     let roundVerdict = '';
-    // Check if player selection is valid
-    if (selectionIsValid(playerSelection) === false) {
-        roundVerdict = 'invalid';
-    } else if (playerSelection === computerSelection) {
+    if (playerSelection === computerSelection) {
         // If selections are the same, set verdict to tie
         roundVerdict = `tie`;
     } else if (playerSelection === 'rock') {
@@ -138,7 +118,7 @@ function playRound(playerSelection) {
         case 'invalid':
             verdictMessage = `You Lose! ${computerSelCap} annihilates whatever "${playerSelCap}" is`;
             break;
-    }
+    };
     // Create variable to store round verdict and verdict message in array
     let verdictInfo = [roundDetails, roundVerdict, verdictMessage]
     // Update player or computer score based on verdict
@@ -147,92 +127,49 @@ function playRound(playerSelection) {
     updateScoreboard();
     // Display game verdict in game messages box
     gameMessages.textContent = verdictInfo[0] + ' ' + verdictInfo[2];
-    // Return round verdict message
-    return verdictInfo;
-}
+    // Check if player or computer have reached the winning score
+    if (checkForVictory() === true) {
+        declareVictory();
+    };
+};
 
 function updateScore(roundVerdict) {
     // Update player or computer score based on verdict
     if (roundVerdict == 'win') {
         playerScore += 1;
-    } else if (roundVerdict = 'lose') {
+    } else if (roundVerdict == 'lose') {
         computerScore += 1;
-    }
-}
+    };
+};
 
 function updateScoreboard() {
     // Update scoreboard to show latest score
     playerScoreboard.textContent = `You: ${playerScore}`;
     computerScoreboard.textContent = `Computer: ${computerScore}`;
-}
+};
 
-// function game () {
-//     // Create variable to store game round counter
-//     let roundCounter = 1;
-//     // Create variable to store player score
-//     let playerScore = 0;
-//     // Create variable to store computer score
-//     let computerScore = 0;
-    
-    // // Play 5 rounds
-    // for (let i = roundCounter; i < 6; i++) {
-    //     // Create variable that plays round and stores round results info
-    //     let verdictInfo = playRound();
-    //     // Display round details
-    //     console.log(verdictInfo[0]);
-    //     // Display round verdict message
-    //     console.log(`\t${verdictInfo[2]}`);
-    //     // Change player or computer score based on verdict info
-    //     switch (verdictInfo[1]) {
-    //         case 'win':
-    //             playerScore++;
-    //             console.log("\tPlayer Score +1!");
-    //             break;
-    //         case 'lose':
-    //             computerScore++;
-    //             console.log("\tComputer Score +1!");
-    //             break;
-    //         case 'invalid':
-    //             computerScore++;
-    //             console.log("\tComputer Score +1!");
-    //             break;
-    //     };
-        
-//     };
-//     // Display final score
-//     console.log(`\nFINAL SCORE\t>>>\tPlayer: ${playerScore}\tComputer: ${computerScore}\n\n`);
-//     // Display final verdict message
-//     if (playerScore > computerScore) {
-//         console.log(
-//             `
-// ██████╗ ██╗      █████╗ ██╗   ██╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗██╗
-// ██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝██║
-// ██████╔╝██║     ███████║ ╚████╔╝ █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗██║
-// ██╔═══╝ ██║     ██╔══██║  ╚██╔╝  ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║╚═╝
-// ██║     ███████╗██║  ██║   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║██╗
-// ╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝
-//             `);
-//     } else if (computerScore > playerScore) {
-//         console.log(
-//             `
-//  ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗   ██╗████████╗███████╗██████╗     ██╗    ██╗██╗███╗   ██╗███████╗██╗
-// ██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║   ██║╚══██╔══╝██╔════╝██╔══██╗    ██║    ██║██║████╗  ██║██╔════╝██║
-// ██║     ██║   ██║██╔████╔██║██████╔╝██║   ██║   ██║   █████╗  ██████╔╝    ██║ █╗ ██║██║██╔██╗ ██║███████╗██║
-// ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║   ██║   ██║   ██╔══╝  ██╔══██╗    ██║███╗██║██║██║╚██╗██║╚════██║╚═╝
-// ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ╚██████╔╝   ██║   ███████╗██║  ██║    ╚███╔███╔╝██║██║ ╚████║███████║██╗
-// ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝      ╚═════╝    ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝
-//             `);
-//     } else if (playerScore === computerScore) {
-//         console.log(
-//             `
-// ████████╗██╗███████╗     ██████╗  █████╗ ███╗   ███╗███████╗██╗
-// ╚══██╔══╝██║██╔════╝    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝██║
-//    ██║   ██║█████╗      ██║  ███╗███████║██╔████╔██║█████╗  ██║
-//    ██║   ██║██╔══╝      ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ╚═╝
-//    ██║   ██║███████╗    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗██╗
-//    ╚═╝   ╚═╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝
-//             `);
-//     }
-// };
+function checkForVictory() {
+    // Return True if player or computer have a victory score
+    // Otherwise, return False
+    if (playerScore === winningScore || computerScore === winningScore) {
+        return true;
+    } else {
+        return false;
+    };
+};
 
-// game()
+function declareVictory() {
+    // Disable buttons
+    allButtons.forEach(disableButton);
+    // Determine victor and display victory message
+    if (playerScore === winningScore) {
+        finalMessage.textContent = "YOU WIN!";
+    } else if (computerScore === winningScore) {
+        finalMessage.textContent = "YOU LOSE!";
+    };
+};
+
+function disableButton(button) {
+    // Disable the provided button
+    button.disabled = true;
+};
